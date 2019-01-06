@@ -3,14 +3,17 @@ import Item from './Item';
 
 export default class ProductTable extends React.Component{
     render(){
-      const rows = ["test","test2"];
-      
+      const rows = [];
+      let PRODUCTS = this.props.products;
+      //console.log(products);
+      for(let i = 0;i < PRODUCTS.products.length; i++){
+        rows.push(<Item product = {PRODUCTS.products[i]}/>)
+      }
+
       return(
-          <table>
-              <tbody>
-                  <Item title = {"test1"} />
-              </tbody>
-          </table>
-      )
+          <div className="shelf-container">
+              {rows}
+          </div>
+      );
     }
-  }
+}
