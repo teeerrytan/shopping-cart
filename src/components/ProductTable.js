@@ -3,17 +3,12 @@ import Item from './Item';
 
 export default class ProductTable extends React.Component{
     render(){
-      const rows = [];
-      this.props.products.forEach((product) => {
-          rows.push(
-              <Item product = {product}/>
-          )
-      })
-
+      const rows = ["test","test2"];
+      
       return(
           <table>
               <tbody>
-                  {rows}
+                  <Item title = {"test1"} />
               </tbody>
           </table>
       )

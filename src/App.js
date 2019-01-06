@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
-import ProductRow from "./components/ProductRow";
 import ProductTable from "./components/ProductTable";
+import Item from "./components/Item";
 
 
 export default class App extends Component {
   render() {
+    
+    const item = {
+      title: "",
+      price: 0
+    }
     return (
-      <ProductTable product = {PRODUCTS} />
+      <ProductTable product = {PRODUCTS}>
+      </ProductTable>
     );
   }
 }
