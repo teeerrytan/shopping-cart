@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Item from './Item';
+import './shelf_style.scss';
 
 export default class ProductTable extends React.Component{
     render(){

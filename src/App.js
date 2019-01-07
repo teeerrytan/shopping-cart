@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ProductTable from "./components/ProductTable";
+import FloatCart from "./components/FloatCart";
 //import * as PRODUCTS from './data/products.json';
 
 export default class App extends Component {
@@ -8,8 +9,10 @@ export default class App extends Component {
     let PRODUCTS = require('./data/products.json');
     //console.log(PRODUCTS.products[1]);
     return (
-      <ProductTable products = {PRODUCTS}>
-      </ProductTable>
+      <div>
+        <ProductTable products = {PRODUCTS}> </ProductTable>
+        <FloatCart></FloatCart>
+      </div>
     );
   }
 }

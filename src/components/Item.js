@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './shelf_style.scss';
 
 export default class Item extends React.Component{
     render(){
