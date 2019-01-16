@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './shelf_style.scss';
+import './materialize.css';
 
 export default class Item extends React.Component{
     render(){
@@ -10,12 +11,21 @@ export default class Item extends React.Component{
       const sku = product.sku;
 
       return (
-          <div className="shelf-item">
-            <div><img src={require(`../images/${sku}.jpg`)} alt={product.title}/></div>
-            <div>{title}</div>
-            <div>${price}</div>
-            <div><button type="button">Add to cart</button></div>
-          </div>
+            <div class="product-card">
+              <div class="card">
+                <div class="card-image">
+                  <img src={require(`../images/${sku}.jpg`)} alt={product.title}/>
+                  <span class="card-title"></span>
+                </div>
+                <div class="card-content">
+                  <p class="card-title">{title}</p>
+                  <p>Price: ${price}</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">Add to cart</a>
+                </div>
+              </div>
+            </div>
       );
     }
 }

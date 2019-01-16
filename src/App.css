@@ -30,3 +30,20 @@
     transform: rotate(360deg);
   }
 }
+
+.size {
+  grid-column: 1;
+}
+
+.page {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+}
+
+.products {
+  grid-column: 2;
+}
+
+.cart {
+  grid-column: 3;
+}

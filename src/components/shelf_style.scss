@@ -1,3 +1,4 @@
+
 .shelf-container {
     width: 85%;
     float: left;
@@ -112,4 +113,15 @@
         transition: background-color 0.2s;
       }
     }
+  }
+
+  .product-card{
+    float: left;
+    width: 25%;
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 30px;
   }
