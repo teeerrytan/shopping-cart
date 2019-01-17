@@ -3150,7 +3150,7 @@ td, th {
   display: block;
   -webkit-transition: .25s;
   transition: .25s;
-  color: #26a69a;
+  color: #c93f3f;
 }
 
 .collection a.collection-item:not(.active):hover {
@@ -3381,7 +3381,7 @@ span.badge.new {
   font-weight: 300;
   font-size: 0.8rem;
   color: #fff;
-  background-color: #26a69a;
+  background-color: #f06c75;
   border-radius: 2px;
 }
 

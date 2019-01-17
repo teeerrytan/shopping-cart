@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Product extends Component {
+export default class CartItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -35,7 +35,7 @@ export default class Product extends Component {
         />
         <img
           className="shelf-item__thumb"
-          src={require(`../static/products/${product.sku}_2.jpg`)}
+          src={require(`../images/${product.sku}_2.jpg`)}
           alt={product.title}
         />
         <div className="shelf-item__details">

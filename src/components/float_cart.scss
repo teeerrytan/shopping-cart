@@ -37,7 +37,7 @@
     display: inline-block;
     vertical-align: middle;
     margin-right: 15px;
-    background-image: url('../static/bag-icon.png');
+    background-image: url('../images/bag-icon.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -67,7 +67,7 @@
       text-align: center;
       line-height: 18px;
       border-radius: 50%;
-      background-color: #286aa3;
+      background-color: #f06a8b;
       position: absolute;
       bottom: -5px;
       right: 0px;
@@ -140,7 +140,7 @@
         border-radius: 50%;
         position: absolute;
         background-size: auto 100%;
-        background-image: url('../static/sprite_delete-icon.png');
+        background-image: url('../images/sprite_delete-icon.png');
         filter:invert(50%);
         background-repeat: no-repeat;
         z-index: 2;
@@ -183,7 +183,7 @@
         }
       }
       &__price {
-        color: #286aa3;
+        color: #da5a76;
         text-align: right;
         width: 25%;
       }
@@ -232,7 +232,7 @@
       }
 
       &__val {
-        color: #286aa3;
+        color: #df5c72;
         font-size: 22px;
       }
     }

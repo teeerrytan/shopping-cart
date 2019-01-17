@@ -52,9 +52,6 @@ export default class App extends Component {
             <ul class="left hide-on-med-and-down">
               <li><a href="">Sizes</a></li>
             </ul>
-            <ul class="right hide-on-med-and-down">
-              <li style={{border: 'solid'}}><a onclick="openNav()">Cart</a></li>
-            </ul>
           </div>
         </nav>
         <div class="page">

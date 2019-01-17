@@ -14,7 +14,7 @@ export default class FloatCart extends React.Component{
         const { cartTotal, /*cartProducts, removeProduct*/ } = this.props
     
         const products = this.props.cartProducts.map(product => {
-          return <Product product={product} key={product.id} removeProduct={this.props.removeProduct} />
+          return <CartItem product={product} key={product.id} removeProduct={this.props.removeProduct} />
         })
     
         return (
