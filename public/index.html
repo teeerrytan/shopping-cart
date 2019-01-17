@@ -38,4 +38,17 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBjlc_JdOm6LXMO5qNxtk1OUo_BSy6R8BY",
+      authDomain: "new-shopping-cart.firebaseapp.com",
+      databaseURL: "https://new-shopping-cart.firebaseio.com",
+      projectId: "new-shopping-cart",
+      storageBucket: "new-shopping-cart.appspot.com",
+      messagingSenderId: "975935197091"
+    };
+    firebase.initializeApp(config);
+  </script>
 </html>
