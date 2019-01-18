@@ -11,7 +11,7 @@ export default class FloatCart extends React.Component{
       }
     
       render() {
-        const { cartTotal, /*cartProducts, removeProduct*/ } = this.props
+        const { cartTotal } = this.props
     
         const products = this.props.cartProducts.map(product => {
           return <CartItem product={product} key={product.id} removeProduct={this.props.removeProduct} />
@@ -46,14 +46,14 @@ export default class FloatCart extends React.Component{
                 <span className="bag">
                   <span className="bag__quantity">{cartTotal.productQuantity}</span>
                 </span>
-                <span className="header-title">Bag</span>
+                <span className="header-title">Shopping Cart</span>
               </div>
     
               <div className="float-cart__shelf-container">
                 {products}
                 {!products.length && (
                   <p className="shelf-empty">
-                    Add some products in the bag <br />
+                    Add some products in the cart. <br />
                     :)
                   </p>
                 )}

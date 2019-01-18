@@ -22,7 +22,7 @@ export default class Item extends React.Component{
                   <p>Price: ${price}</p>
                 </div>
                 <div class="card-action">
-                  <a href="#">Add to cart</a>
+                  <a href="!#">Add to cart</a>
                 </div>
               </div>
             </div>

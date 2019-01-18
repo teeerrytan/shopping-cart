@@ -50,7 +50,7 @@ export default class App extends Component {
           <div class="nav-wrapper">
             <a href="#!" class="brand-logo center">APPAREL</a>
             <ul class="left hide-on-med-and-down">
-              <li><a href="">Sizes</a></li>
+              <li><a href="" >Sizes</a></li>
             </ul>
           </div>
         </nav>
