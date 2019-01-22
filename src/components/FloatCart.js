@@ -5,13 +5,13 @@ import './float_cart.scss';
 export default class FloatCart extends React.Component{
     constructor(props) {
         super(props)
-        // this.state = {
-        //   isOpen: false
-        // }
+        this.state = {
+          isOpen: false
+        }
       }
     
       render() {
-        const { cartTotal } = this.props
+        const { cartTotal, cartProducts, removeProduct} = this.props
     
         const products = this.props.cartProducts.map(product => {
           return <CartItem product={product} key={product.id} removeProduct={this.props.removeProduct} />

@@ -5,7 +5,7 @@ import './materialize.css';
 export default class Item extends React.Component{
     render(){
       //console.log(this.props.product);
-      const product = this.props.product;
+      const {product} = this.props;
       const title = product.title;
       const price = product.price;
       const sku = product.sku;
@@ -22,7 +22,7 @@ export default class Item extends React.Component{
                   <p>Price: ${price}</p>
                 </div>
                 <div class="card-action">
-                  <a href="!#">Add to cart</a>
+                  <a onClick={() => this.props.handleAdd(product)} href="javascript:viod(0)">Add to cart</a>
                 </div>
               </div>
             </div>

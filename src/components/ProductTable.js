@@ -8,7 +8,7 @@ export default class ProductTable extends React.Component{
       let PRODUCTS = this.props.products;
       //console.log(products);
       for(let i = 0;i < PRODUCTS.products.length; i++){
-        rows.push(<Item product = {PRODUCTS.products[i]}/>)
+        rows.push(<Item product = {PRODUCTS.products[i]} handleAdd = {this.props.handleAdd}/>)
       }
 
       return(

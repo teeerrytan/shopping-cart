@@ -15,10 +15,10 @@ export default class App extends Component {
         totalPrice: 0,
         cartIsOpen: false
       }
-      this.handleProductSelection = this.handleProductSelection.bind(this)
+      this.handleAdd = this.handleAdd.bind(this)
       this.handleToggle = this.handleToggle.bind(this)
     }
-    handleProductSelection(product) {
+    handleAdd(product) {
       this.setState(prevState => {
         return {
           productQuantity: prevState.productQuantity + 1,
@@ -56,7 +56,7 @@ export default class App extends Component {
         </nav>
         <div class="page">
           <Size class="Size"></Size>
-          <ProductTable class="products" products = {PRODUCTS}> </ProductTable>
+          <ProductTable class="products" products = {PRODUCTS} handleAdd = {this.handleAdd}> </ProductTable>
           <FloatCart class="cart" 
             cartTotal={{
               productQuantity: this.state.productQuantity,
