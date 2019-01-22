@@ -46,7 +46,7 @@ export default class App extends Component {
         }
       })
     }
-    
+
   render() {
     let PRODUCTS = require('./data/products.json');
     //console.log(PRODUCTS.products[1]);
@@ -60,6 +60,7 @@ export default class App extends Component {
             </ul>
           </div>
         </nav>
+        
         <div class="page">
           <Size class="Size"></Size>
           <ProductTable class="products" products = {PRODUCTS} handleAdd = {this.handleAdd}> </ProductTable>
