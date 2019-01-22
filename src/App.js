@@ -18,6 +18,7 @@ export default class App extends Component {
       this.handleAdd = this.handleAdd.bind(this)
       this.handleToggle = this.handleToggle.bind(this)
     }
+    
     handleAdd(product) {
       this.setState(prevState => {
         return {
