@@ -38,7 +38,11 @@ export default class App extends Component {
     removeProduct = product => {
       this.setState(prevState => {
         const { cartProducts } = prevState
-        return { cartProducts: cartProducts.filter(p => p.sku !== product.sku) }
+        return {
+          productQuantity: prevState.productQuantity - 1,
+          cartProducts: cartProducts.filter(p => p.sku !== product.sku),
+          totalPrice: prevState.totalPrice - product.price
+        }
       })
     }
   render() {
