@@ -18,7 +18,7 @@ export default class App extends Component {
       this.handleAdd = this.handleAdd.bind(this)
       this.handleToggle = this.handleToggle.bind(this)
     }
-    
+
     handleAdd(product) {
       this.setState(prevState => {
         return {
@@ -46,6 +46,7 @@ export default class App extends Component {
         }
       })
     }
+    
   render() {
     let PRODUCTS = require('./data/products.json');
     //console.log(PRODUCTS.products[1]);
