@@ -5,10 +5,10 @@ import './shelf_style.scss';
 export default class ProductTable extends React.Component{
     render(){
       const rows = [];
-      let PRODUCTS = this.props.products;
+      let tableProducts = this.props.products;
       //console.log(products);
-      for(let i = 0;i < PRODUCTS.products.length; i++){
-        rows.push(<Item product = {PRODUCTS.products[i]} handleAdd = {this.props.handleAdd}/>)
+      for(let i = 0;i < tableProducts.products.length; i++){
+        rows.push(<Item product = {tableProducts.products[i]} handleAdd = {this.props.handleAdd}/>);
       }
 
       return(

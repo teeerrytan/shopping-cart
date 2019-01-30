@@ -7,45 +7,55 @@ import { redBright } from 'ansi-colors';
 //import * as PRODUCTS from './data/products.json';
 
 export default class App extends Component {
-    constructor(props){
-      super(props)
-      this.state = {
-        productQuantity: 0,
-        cartProducts: [],
-        totalPrice: 0,
-        cartIsOpen: false
-      }
-      this.handleAdd = this.handleAdd.bind(this)
-      this.handleToggle = this.handleToggle.bind(this)
+  constructor(props) {
+    super(props)
+    this.state = {
+      productQuantity: 0,
+      cartProducts: [],
+      totalPrice: 0,
+      cartIsOpen: false,
+      sizes: []
     }
+    this.handleAdd = this.handleAdd.bind(this)
+    this.handleToggle = this.handleToggle.bind(this)
+  }
 
-    handleAdd(product) {
-      this.setState(prevState => {
-        return {
-          productQuantity: prevState.productQuantity + 1,
-          cartProducts: prevState.cartProducts.concat(product),
-          totalPrice: prevState.totalPrice + product.price
-        }
-      })
-      this.setState({ cartIsOpen: true })
-    }
-  
-    handleToggle() {
-      this.setState({
-        cartIsOpen: !this.state.cartIsOpen
-      })
-    }
-  
-    removeProduct = product => {
-      this.setState(prevState => {
-        const { cartProducts } = prevState
-        return {
-          productQuantity: prevState.productQuantity - 1,
-          cartProducts: cartProducts.filter(p => p.sku !== product.sku),
-          totalPrice: prevState.totalPrice - product.price
-        }
-      })
-    }
+  handleAdd(product) {
+    this.setState(prevState => {
+      return {
+        productQuantity: prevState.productQuantity + 1,
+        cartProducts: prevState.cartProducts.concat(product),
+        totalPrice: prevState.totalPrice + product.price
+      }
+    })
+    this.setState({ cartIsOpen: true })
+  }
+
+  handleToggle() {
+    this.setState({
+      cartIsOpen: !this.state.cartIsOpen
+    })
+  }
+
+  removeProduct = product => {
+    this.setState(prevState => {
+      const { cartProducts } = prevState
+      return {
+        productQuantity: prevState.productQuantity - 1,
+        cartProducts: cartProducts.filter(p => p.sku !== product.sku),
+        totalPrice: prevState.totalPrice - product.price
+      }
+    })
+  }
+
+  sizeFilter(size) {
+    var tempSizes = this.state.sizes
+    tempSizes.push(size);
+    this.setState({
+        sizes: tempSizes
+    })
+    console.log(this.state.sizes);
+  }
 
   render() {
     let PRODUCTS = require('./data/products.json');
@@ -55,16 +65,13 @@ export default class App extends Component {
         <nav>
           <div class="nav-wrapper">
             <a href="#!" class="brand-logo center">APPAREL</a>
-            <ul class="left hide-on-med-and-down">
-              <li><a href="" >Sizes</a></li>
-            </ul>
           </div>
         </nav>
-        
+
         <div class="page">
-          <Size class="Size"></Size>
-          <ProductTable class="products" products = {PRODUCTS} handleAdd = {this.handleAdd}> </ProductTable>
-          <FloatCart class="cart" 
+          <Size class="Size" sizes = {this.state.sizes} sizeFilter={this.sizeFilter}></Size>
+          <ProductTable class="products" products={PRODUCTS} handleAdd={this.handleAdd}> </ProductTable>
+          <FloatCart class="cart"
             cartTotal={{
               productQuantity: this.state.productQuantity,
               totalPrice: this.state.totalPrice

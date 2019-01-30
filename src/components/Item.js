@@ -2,30 +2,31 @@ import React, { Component } from 'react';
 import './shelf_style.scss';
 import './materialize.css';
 
-export default class Item extends React.Component{
-    render(){
-      //console.log(this.props.product);
-      const {product} = this.props;
-      const title = product.title;
-      const price = product.price;
-      const sku = product.sku;
+export default class Item extends React.Component {
+  render() {
+    //console.log(this.props.product);
+    const { product } = this.props;
+    const title = product.title;
+    const price = product.price;
+    const sku = product.sku;
+    const size = product.availableSizes;
 
-      return (
-            <div class="product-card">
-              <div class="card">
-                <div class="card-image">
-                  <img src={require(`../images/${sku}.jpg`)} alt={product.title}/>
-                  <span class="card-title"></span>
-                </div>
-                <div class="card-content">
-                  <p class="card-title">{title}</p>
-                  <p>Price: ${price}</p>
-                </div>
-                <div class="card-action">
-                  <a onClick={() => this.props.handleAdd(product)} href="javascript:viod(0)">Add to cart</a>
-                </div>
-              </div>
-            </div>
-      );
-    }
+    return (
+      <div class="product-card">
+        <div class="card">
+          <div class="card-image">
+            <img src={require(`../images/${sku}.jpg`)} alt={product.title} />
+            <span class="card-title"></span>
+          </div>
+          <div class="card-content">
+            <p class="card-title">{title}</p>
+            <p>Price: ${price}</p>
+          </div>
+          <div class="card-action">
+            <a onClick={() => this.props.handleAdd(product)} href="javascript:void(0)">Add to cart</a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
