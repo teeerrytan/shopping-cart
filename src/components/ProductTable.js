@@ -3,6 +3,11 @@ import Item from './Item';
 import './shelf_style.scss';
 
 export default class ProductTable extends React.Component{
+    componentDidUpdate(prevProps) {
+        if (this.props.sizes !== prevProps.sizes) {
+          this.fetchData(this.props.sizes);
+        }
+      }
     render(){
       const rows = [];
       let tableProducts = this.props.products;

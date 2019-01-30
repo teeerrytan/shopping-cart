@@ -18,6 +18,17 @@ export default class App extends Component {
     }
     this.handleAdd = this.handleAdd.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
+    var firebase = require("firebase");
+    var config = {
+      apiKey: "AIzaSyBjlc_JdOm6LXMO5qNxtk1OUo_BSy6R8BY",
+      authDomain: "new-shopping-cart.firebaseapp.com",
+      databaseURL: "https://new-shopping-cart.firebaseio.com",
+      projectId: "new-shopping-cart",
+      storageBucket: "new-shopping-cart.appspot.com",
+      messagingSenderId: "975935197091"
+    };
+    firebase.initializeApp(config);
+    var provider = new firebase.auth.GoogleAuthProvider();
   }
 
   handleAdd(product) {
@@ -64,13 +75,14 @@ export default class App extends Component {
       <div>
         <nav>
           <div class="nav-wrapper">
+
             <a href="#!" class="brand-logo center">APPAREL</a>
           </div>
         </nav>
 
         <div class="page">
-          <Size class="Size" sizes = {this.state.sizes} sizeFilter={this.sizeFilter}></Size>
-          <ProductTable class="products" products={PRODUCTS} handleAdd={this.handleAdd}> </ProductTable>
+          <Size class="Size" sizes={this.state.sizes} sizeFilter={this.sizeFilter}></Size>
+          <ProductTable class="products" sizes={this.state.sizes} products={PRODUCTS} handleAdd={this.handleAdd}> </ProductTable>
           <FloatCart class="cart"
             cartTotal={{
               productQuantity: this.state.productQuantity,
