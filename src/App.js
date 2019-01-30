@@ -5,6 +5,16 @@ import FloatCart from "./components/FloatCart";
 import Size from "./components/Size";
 import { redBright } from 'ansi-colors';
 //import * as PRODUCTS from './data/products.json';
+import firebase from "firebase";
+import * as firebaseui from 'firebaseui'
+import styles from './firebase.css'; // This uses CSS modules.
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+const config = {
+  apiKey: "AIzaSyBjlc_JdOm6LXMO5qNxtk1OUo_BSy6R8BY",
+  authDomain: "new-shopping-cart.firebaseapp.com"
+};
+const firebaseApp = firebase.initializeApp(config);
+
 
 export default class App extends Component {
   constructor(props) {
@@ -14,22 +24,23 @@ export default class App extends Component {
       cartProducts: [],
       totalPrice: 0,
       cartIsOpen: false,
-      sizes: []
+      sizes: [],
+      isSignedIn: false
     }
     this.handleAdd = this.handleAdd.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
-    var firebase = require("firebase");
-    var config = {
-      apiKey: "AIzaSyBjlc_JdOm6LXMO5qNxtk1OUo_BSy6R8BY",
-      authDomain: "new-shopping-cart.firebaseapp.com",
-      databaseURL: "https://new-shopping-cart.firebaseio.com",
-      projectId: "new-shopping-cart",
-      storageBucket: "new-shopping-cart.appspot.com",
-      messagingSenderId: "975935197091"
-    };
-    firebase.initializeApp(config);
     var provider = new firebase.auth.GoogleAuthProvider();
   }
+
+  uiConfig = {
+    signInFlow: 'popup',
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: () => false,
+    },
+  };
 
   handleAdd(product) {
     this.setState(prevState => {
@@ -63,7 +74,7 @@ export default class App extends Component {
     var tempSizes = this.state.sizes
     tempSizes.push(size);
     this.setState({
-        sizes: tempSizes
+      sizes: tempSizes
     })
     console.log(this.state.sizes);
   }
@@ -71,11 +82,27 @@ export default class App extends Component {
   render() {
     let PRODUCTS = require('./data/products.json');
     //console.log(PRODUCTS.products[1]);
+    let googleStyles = {
+      height: '60px'
+    };
     return (
       <div>
         <nav>
           <div class="nav-wrapper">
-
+            <div class="left hide-on-med-and-down" style={googleStyles}>
+              {this.state.isSignedIn !== undefined && !this.state.isSignedIn &&
+                <div>
+                  <StyledFirebaseAuth className={styles.firebaseUi} uiConfig={this.uiConfig}
+                    firebaseAuth={firebaseApp.auth()} />
+                </div>
+              }
+              {this.state.isSignedIn &&
+                <div className={styles.signedIn}>
+                  Hello {firebaseApp.auth().currentUser.displayName}. You are now signed In!
+                  <a className={styles.button} onClick={() => firebaseApp.auth().signOut()}>Sign-out</a>
+                </div>
+              }
+            </div>
             <a href="#!" class="brand-logo center">APPAREL</a>
           </div>
         </nav>
