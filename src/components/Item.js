@@ -9,20 +9,19 @@ export default class Item extends React.Component {
     const title = product.title;
     const price = product.price;
     const sku = product.sku;
-    const size = product.availableSizes;
 
     return (
-      <div class="product-card">
-        <div class="card">
-          <div class="card-image">
+      <div className="product-card">
+        <div className="card">
+          <div className="card-image">
             <img src={require(`../images/${sku}.jpg`)} alt={product.title} />
-            <span class="card-title"></span>
+            <span className="card-title"></span>
           </div>
-          <div class="card-content">
-            <p class="card-title">{title}</p>
+          <div className="card-content">
+            <p className="card-title">{title}</p>
             <p>Price: ${price}</p>
           </div>
-          <div class="card-action">
+          <div className="card-action">
             <a onClick={() => this.props.handleAdd(product)} href="javascript:void(0)">Add to cart</a>
           </div>
         </div>

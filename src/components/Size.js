@@ -1,17 +1,65 @@
 import React, { Component } from 'react';
-import './size.css';
+import './size.scss';
 
 export default class Size extends React.Component {
+
+    chipRow = [];
+    addChip(i) {
+        console.log("XS");
+    }
     render() {
+        const sizes = ["XS", "S", "M", "X", "ML", "L", "XL", "XXL"];
+        const sizeButtons = sizes.map((sz) => {
+            return (
+                <SizeButton
+                    key={sz}
+                    size={sz}
+                    handleToggleFilterSize={() => this.props.handleToggleFilterSize(sz)}
+                />
+            );
+        });
+
         return (
-            <div class="collection">
-                <a onClick={() => this.props.sizeFilter("XS")} href="javascript:void(0)" class="collection-item" ><span class="new badge" data-badge-caption="In Stock"></span>XS</a>
-                <a onClick={() => this.props.sizeFilter("S")} href="javascript:void(0)" class="collection-item"><span class="new badge" data-badge-caption="In Stock"></span>S</a>
-                <a onClick={() => this.props.sizeFilter("M")} href="javascript:void(0)" class="collection-item"><span class="new badge" data-badge-caption="In Stock"></span>M</a>
-                <a onClick={() => this.props.sizeFilter("X")} href="javascript:void(0)"  class="collection-item"><span class="new badge" data-badge-caption="In Stock"></span>X</a>
-                <a onClick={() => this.props.sizeFilter("XL")} href="javascript:void(0)" class="collection-item"><span class="new badge" data-badge-caption="In Stock"></span>XL</a>
-                <a onClick={() => this.props.sizeFilter("XXL")} href="javascript:void(0)" class="collection-item"><span class="new badge" data-badge-caption="In Stock"></span>XXL</a>
+            <div className="filters">
+                <h5 className="title">Filters:</h5>
+                {sizeButtons}
             </div>
         );
+
     }
 }
+
+class SizeButton extends Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        toggled: false,
+      }
+    }
+  
+    toggleCheckboxChange = () => {
+      this.setState(({ toggled }) => ({
+        toggled: !toggled
+      }));
+      this.props.handleToggleFilterSize();
+    };
+  
+    render() {
+      return (
+        <div className="filters-available-size">
+        <label>
+          <input
+            type="checkbox"
+            value={this.props.size}
+            checked={this.state.toggled}
+            onChange={this.toggleCheckboxChange}
+          />
+          <span className="checkmark">{this.props.size}</span>
+        </label>
+        </div>
+      );
+    }
+  }
+
+
+

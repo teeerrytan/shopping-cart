@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 import ProductTable from "./components/ProductTable";
 import FloatCart from "./components/FloatCart";
 import Size from "./components/Size";
@@ -24,7 +24,7 @@ export default class App extends Component {
       cartProducts: [],
       totalPrice: 0,
       cartIsOpen: false,
-      sizes: [],
+      sizes: new Set(),
       isSignedIn: false
     }
     this.handleAdd = this.handleAdd.bind(this)
@@ -70,26 +70,29 @@ export default class App extends Component {
     })
   }
 
-  sizeFilter(size) {
-    var tempSizes = this.state.sizes
-    tempSizes.push(size);
+  handleToggleFilterSize(size) {
+    var filterSizes = this.state.sizes;
+    if (filterSizes.has(size)) {
+      filterSizes.delete(size);
+    } else {
+      filterSizes.add(size);
+    }
     this.setState({
-      sizes: tempSizes
-    })
-    console.log(this.state.sizes);
+      sizes: filterSizes,
+    });
+    return;
   }
 
   render() {
     let PRODUCTS = require('./data/products.json');
-    //console.log(PRODUCTS.products[1]);
     let googleStyles = {
       height: '60px'
     };
     return (
       <div>
         <nav>
-          <div class="nav-wrapper">
-            <div class="left hide-on-med-and-down" style={googleStyles}>
+          <div className="nav-wrapper">
+            <div className="left hide-on-med-and-down" style={googleStyles}>
               {this.state.isSignedIn !== undefined && !this.state.isSignedIn &&
                 <div>
                   <StyledFirebaseAuth className={styles.firebaseUi} uiConfig={this.uiConfig}
@@ -103,14 +106,15 @@ export default class App extends Component {
                 </div>
               }
             </div>
-            <a href="#!" class="brand-logo center">APPAREL</a>
+            <a href="#!" className="brand-logo center">APPAREL</a>
           </div>
         </nav>
 
-        <div class="page">
-          <Size class="Size" sizes={this.state.sizes} sizeFilter={this.sizeFilter}></Size>
-          <ProductTable class="products" sizes={this.state.sizes} products={PRODUCTS} handleAdd={this.handleAdd}> </ProductTable>
-          <FloatCart class="cart"
+        <div className="page">
+          <Size className="Size" sizes={this.state.sizes} handleToggleFilterSize={(size) => this.handleToggleFilterSize(size)}></Size>
+          <ProductTable className="products" sizes={this.state.sizes} products={PRODUCTS} handleAdd={this.handleAdd}>
+          </ProductTable>
+          <FloatCart className="cart"
             cartTotal={{
               productQuantity: this.state.productQuantity,
               totalPrice: this.state.totalPrice

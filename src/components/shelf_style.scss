@@ -118,10 +118,46 @@
   .product-card{
     float: left;
     width: 25%;
+    height: 75%;
     position: relative;
     text-align: center;
     font-weight: bold;
     box-sizing: border-box;
     padding: 10px;
+    margin-top: 30px;
     margin-bottom: 30px;
   }
+
+  @media only screen and (max-width: 1024px) {
+  body {
+    .filters {
+      width: 20%;
+    }
+
+    .shelf-container {
+      width: 80%;
+
+      .shelf-item {
+        width: 33.33%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .product-card {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .product-card {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .product-card {
+    width: 80%;
+  }
+}

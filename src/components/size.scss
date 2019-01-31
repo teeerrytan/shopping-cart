@@ -1,0 +1,124 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.collection-item {
+    color: #b92d44;
+}
+
+.collection {
+    margin-top: 18px;
+    float: left;
+}
+
+.size-box {
+    margin-left: 25px;
+    margin-top: 20px;
+}
+
+.btn {
+    height:50px;
+    width:50px;
+    margin-top: 15px;
+    font-size: 20px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.chip {
+    margin-top: 6px;
+    float: left;
+}
+
+.close-chip {
+    float: right;
+}
+
+.filters {
+    width: 15%;
+    float: left;
+  
+    .star-button-container {
+      text-align: center;
+      small {
+        color: #aaa;
+        margin-bottom: 8px;
+        display: inline-block;
+      }
+    }
+  
+    .title {
+      margin-top: 2px;
+      margin-bottom: 20px;
+    }
+  
+    &-available-size {
+      display: inline-block;
+      margin-bottom: 10px;
+      /* Customize the label (the container) */
+      label {
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 35px;
+        height: 35px;
+        font-size: 0.8em;
+        margin-bottom: 8px;
+        margin-right: 8px;
+        border-radius: 50%;
+        line-height: 35px;
+        text-align: center;
+  
+        /* On mouse-over, add a grey background color */
+        &:hover input ~ .checkmark {
+          background-color: rgb(194, 194, 194);
+        }
+  
+        & input:checked ~ .checkmark {
+          background-color: #535354;
+          color: #ececec;
+        }
+  
+        /* Show the checkmark when checked */
+        & input:checked ~ .checkmark:after {
+          display: block;
+        }
+  
+        input {
+          margin-top: 20px;
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+        }
+  
+        /* Create a custom checkbox */
+        .checkmark {
+          margin-left: 20px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 80px;
+          height: 35px;
+          font-size: 1.4em;
+          border-radius: 6%;
+          line-height: 25px;
+          text-align: center;
+          color: #1b1a20;
+          background-color: #ececec;
+  
+          border: 5px solid transparent;
+        }
+      }
+    }
+  }
+
+.title {
+  margin-left: 20px;
+  padding-top: 20px;
+}
