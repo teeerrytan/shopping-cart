@@ -36,9 +36,7 @@ export default class ProductTable extends React.Component {
         if (sizes.size <= 0) {
             tableProducts = products;
         }
-        // tableProducts = tableProducts.filter(item => {
-        //     return Object.keys(item.availableSizes).length > 0;
-        //   });
+        
         console.log("products are: " + toString(tableProducts));
         for (let i = 0; i < tableProducts.length; i++) {
             rows.push(<Item product={tableProducts[i]} handleAdd={this.props.handleAdd} />);
