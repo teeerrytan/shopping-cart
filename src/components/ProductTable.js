@@ -24,9 +24,8 @@ export default class ProductTable extends React.Component {
 
         for (let i = 0; i < products.length; i++) {
             let itemSizes = products[i].availableSizes;
-            console.log("itemSizes: " + itemSizes);
-            for (let i = 0; i < itemSizes.length; i++) {
-                if (sizes.has(itemSizes[i])) {
+            for (let j = 0; j < itemSizes.length; j++) {
+                if (sizes.has(itemSizes[j])) {
                     tableProducts.push(products[i]);
                     break;
                 }
@@ -38,13 +37,19 @@ export default class ProductTable extends React.Component {
         }
         
         console.log("products are: " + toString(tableProducts));
-        for (let i = 0; i < tableProducts.length; i++) {
-            rows.push(<Item product={tableProducts[i]} handleAdd={this.props.handleAdd} />);
-        }
+
+        const rows = tableProducts.map((key, val) => {
+            let item = tableProducts[val];
+            return (
+                <Item product={item} handleAdd={this.props.handleAdd}></Item>
+            );
+        })
+        
         console.log("rows: " + rows);
 
         return (
             <div className="shelf-container">
+                <div>{tableProducts.length} products found.</div>
                 {rows}
             </div>
         );
