@@ -48,7 +48,8 @@ export default class App extends Component {
       if(user){
         console.log("User UID is: " + user.uid);
         this.setState({
-          UID: user.uid
+          UID: user.uid,
+          isSignedIn: true
         })
         var docRef = userRef.doc(user.uid);
         let cartDB = [];
@@ -97,6 +98,11 @@ export default class App extends Component {
     if (total <= 0) {
       alert("Please buy some stuff. We are poor.")
     } else {
+      await db.collection("users").doc(this.state.UID).set({
+        items: [],
+        totalPrice: 0,
+        quantity: 0
+      })
       alert("Your total price is: " + total + ". Thank you so much!");
       await this.setState({
         productQuantity: 0,
@@ -158,10 +164,19 @@ export default class App extends Component {
 
     let tempMap = this.state.itemNumbers;
     await tempMap.set(sku, tempMap.get(sku) - 1);
-    this.setState({
+    await this.setState({
       itemNumbers: tempMap
     })
     console.log("after " + this.state.itemNumbers.get(sku));
+  }
+
+  handleSignOut = async () => {
+    await this.setState({
+      UID: "",
+      isSignedIn: false
+    });
+    await firebaseApp.auth().signOut();
+
   }
 
   removeProduct = async product => {
@@ -216,7 +231,8 @@ export default class App extends Component {
               {this.state.isSignedIn &&
                 <div className={styles.signedIn}>
                   Hello {firebaseApp.auth().currentUser.displayName}. You are now signed In!
-                  <a className={styles.button} onClick={() => firebaseApp.auth().signOut()}>Sign-out</a>
+                  &nbsp;&nbsp;&nbsp;
+                  <button className={styles.button} onClick={this.handleSignOut}>Sign-out</button>
                 </div>
               }
             </div>
