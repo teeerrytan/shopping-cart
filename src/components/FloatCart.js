@@ -7,30 +7,29 @@ export default class FloatCart extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-          isOpen: false
+          isOpen: false,
+          itemNumbers: {}
         }
       }
 
     async componentDidMount(){
       var items = await this.props.getItemNumber();
       
-      var itemMap = new Map(Object.entries(items));
+      var itemMap = await new Map(Object.entries(items));
 
-      this.setState({
+      await this.setState({
           itemNumbers: itemMap
       })
-      
     }
-    
+
     render() {
       const { cartTotal, cartProducts, removeProduct} = this.props;
-      console.log("products are: " + Object.values(cartProducts));
       let products = [];
+      let tempMap = this.state.itemNumbers;
       //////////////////////////////////////////////////////////////////////////////////////
       if(cartProducts !== []){
         products = cartProducts.map(product => {
-          
-          console.log("product heihei: " + product);
+          tempMap.set(`${product.sku}`, tempMap.get(`${product.sku}`) <= 1 ? 0 : tempMap.get(`${product.sku}`) - 1);
           return <CartItem product={product} key={product.id} removeProduct={removeProduct} />
         })
       }
@@ -83,7 +82,7 @@ export default class FloatCart extends React.Component{
                   {`${cartTotal.totalPrice}`}
                 </p>
               </div>
-              <div className="buy-btn" onClick={() => this.props.handleCheckout(cartTotal.totalPrice)}>
+              <div className="buy-btn" onClick={() => this.props.handleCheckout(cartTotal.totalPrice, this.state.itemNumbers)}>
                 Checkout
               </div>
             </div>

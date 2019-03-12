@@ -43,7 +43,15 @@ export default class App extends Component {
   }
 
   async componentDidMount() {
-    
+
+    var items = await this.getItemNumber();
+        
+    var itemMap = await new Map(Object.entries(items));
+    console.log("itemMap is: " + itemMap.get("10412368723880252"));
+    this.setState({
+        itemNumbers: itemMap
+    })
+
     await firebase.auth().onAuthStateChanged((user) => {
       if(user){
         console.log("User UID is: " + user.uid);
@@ -84,17 +92,9 @@ export default class App extends Component {
         }
       }
     })
-
-    var items = await this.getItemNumber();
-
-    var itemMap = new Map(Object.entries(items));
-
-    this.setState({
-      itemNumbers: itemMap
-    })
   }
 
-  handleCheckout = async total => {
+  handleCheckout = async (total, map) => {
     if (total <= 0) {
       alert("Please buy some stuff. We are poor.")
     } else {
@@ -110,6 +110,7 @@ export default class App extends Component {
         totalPrice: 0
       })
     }
+    await this.updateAvail(map);
   }
 
   uiConfig = {
@@ -133,6 +134,20 @@ export default class App extends Component {
     }
   }
 
+  updateAvail = async (map) => {
+    await map.forEach(
+      this.updateDB
+    );  
+  }
+
+  updateDB = async (value, key, map) => {
+    var availRef = await this.db.collection("items").doc("availability");
+    let tempKey = key;
+    var setWithMerge = availRef.set({
+      [tempKey]: value
+  }, { merge: true });
+  }
+
   async handleAdd(product) {
     console.log("type of product: " + typeof product);
     await console.log("prev is: " + this.state.cartProducts);
@@ -144,13 +159,16 @@ export default class App extends Component {
       }
     })
     let tempPrice = await Number(this.state.totalPrice);
-    
-    await db.collection("users").doc(this.state.UID).set({
-      items: this.state.cartProducts,
-      totalPrice: tempPrice.toFixed(2),
-      quantity: this.state.productQuantity
-    })
-    this.setState({ cartIsOpen: true })
+    if(this.state.UID === ""){
+      alert("Please sign in firstly");
+    }else{
+      await db.collection("users").doc(this.state.UID).set({
+        items: this.state.cartProducts,
+        totalPrice: tempPrice.toFixed(2),
+        quantity: this.state.productQuantity
+      })
+      this.setState({ cartIsOpen: true })
+    }
   }
 
   handleToggle() {
@@ -191,10 +209,10 @@ export default class App extends Component {
       }
     })
     let tempPrice = await Number(this.state.totalPrice);
-
+    tempPrice = await tempPrice.toFixed(2);
     await db.collection("users").doc(this.state.UID).set({
       items: this.state.cartProducts,
-      totalPrice: tempPrice.toFixed(2),
+      totalPrice: tempPrice,
       quantity: this.state.productQuantity
     })
   }
@@ -230,7 +248,7 @@ export default class App extends Component {
               }
               {this.state.isSignedIn &&
                 <div className={styles.signedIn}>
-                  Hello {firebaseApp.auth().currentUser.displayName}. You are now signed In!
+                  &nbsp;&nbsp;&nbsp;Hello {firebaseApp.auth().currentUser.displayName}. You are now signed In!
                   &nbsp;&nbsp;&nbsp;
                   <button className={styles.button} onClick={this.handleSignOut}>Sign-out</button>
                 </div>
@@ -242,7 +260,7 @@ export default class App extends Component {
 
         <div className="page">
           <Size className="Size" sizes={this.state.sizes} handleToggleFilterSize={(size) => this.handleToggleFilterSize(size)}></Size>
-          <ProductTable className="products" sizes={this.state.sizes} products={PRODUCTS} handleAdd={this.handleAdd} getItemNumber={this.getItemNumber} >
+          <ProductTable className="products" sizes={this.state.sizes} products={PRODUCTS} handleAdd={this.handleAdd} getItemNumber={this.getItemNumber} itemNumbers={this.state.itemNumbers}>
           </ProductTable>
           <FloatCart className="cart"
             cartTotal={{
@@ -255,6 +273,7 @@ export default class App extends Component {
             removeProduct={this.removeProduct}
             getItemNumber={this.getItemNumber}
             handleCheckout={this.handleCheckout}
+            updateAvail={this.updateAvail}
           >
           </FloatCart>
         </div>
