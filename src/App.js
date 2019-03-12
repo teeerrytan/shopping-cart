@@ -9,16 +9,22 @@ import firebase from "firebase";
 import * as firebaseui from 'firebaseui'
 import styles from './firebase.css'; // This uses CSS modules.
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import app from "firebase/app";
+
 const config = {
   apiKey: "AIzaSyBjlc_JdOm6LXMO5qNxtk1OUo_BSy6R8BY",
-  authDomain: "new-shopping-cart.firebaseapp.com"
+    authDomain: "new-shopping-cart.firebaseapp.com",
+    databaseURL: "https://new-shopping-cart.firebaseio.com",
+    projectId: "new-shopping-cart",
+    storageBucket: "new-shopping-cart.appspot.com",
+    messagingSenderId: "975935197091"
 };
 const firebaseApp = firebase.initializeApp(config);
 
-
 export default class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.db = firebaseApp.firestore();
     this.state = {
       productQuantity: 0,
       cartProducts: [],
@@ -27,20 +33,35 @@ export default class App extends Component {
       sizes: new Set(),
       isSignedIn: false
     }
-    this.handleAdd = this.handleAdd.bind(this)
-    this.handleToggle = this.handleToggle.bind(this)
+    this.handleAdd = this.handleAdd.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
     var provider = new firebase.auth.GoogleAuthProvider();
+  }
+
+  async componentDidMount(){
+    
   }
 
   uiConfig = {
     signInFlow: 'popup',
     signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
     ],
     callbacks: {
       signInSuccessWithAuthResult: () => false,
     },
   };
+
+  getItemNumber = async () => {
+    var availRef = this.db.collection("items").doc("availability");
+    try{
+      const items = await availRef.get();
+      return items.data();
+    } catch (e) {
+      console.log("The error is", e);
+      return -1;
+    }
+  }
 
   handleAdd(product) {
     this.setState(prevState => {
@@ -112,7 +133,7 @@ export default class App extends Component {
 
         <div className="page">
           <Size className="Size" sizes={this.state.sizes} handleToggleFilterSize={(size) => this.handleToggleFilterSize(size)}></Size>
-          <ProductTable className="products" sizes={this.state.sizes} products={PRODUCTS} handleAdd={this.handleAdd}>
+          <ProductTable className="products" sizes={this.state.sizes} products={PRODUCTS} handleAdd={this.handleAdd} getItemNumber={this.getItemNumber} >
           </ProductTable>
           <FloatCart className="cart"
             cartTotal={{
