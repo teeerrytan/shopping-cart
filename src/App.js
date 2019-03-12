@@ -13,13 +13,15 @@ import app from "firebase/app";
 
 const config = {
   apiKey: "AIzaSyBjlc_JdOm6LXMO5qNxtk1OUo_BSy6R8BY",
-    authDomain: "new-shopping-cart.firebaseapp.com",
-    databaseURL: "https://new-shopping-cart.firebaseio.com",
-    projectId: "new-shopping-cart",
-    storageBucket: "new-shopping-cart.appspot.com",
-    messagingSenderId: "975935197091"
+  authDomain: "new-shopping-cart.firebaseapp.com",
+  databaseURL: "https://new-shopping-cart.firebaseio.com",
+  projectId: "new-shopping-cart",
+  storageBucket: "new-shopping-cart.appspot.com",
+  messagingSenderId: "975935197091"
 };
 const firebaseApp = firebase.initializeApp(config);
+var db = firebase.firestore();
+var userRef = db.collection("users");
 
 export default class App extends Component {
   constructor(props) {
@@ -31,15 +33,77 @@ export default class App extends Component {
       totalPrice: 0,
       cartIsOpen: false,
       sizes: new Set(),
-      isSignedIn: false
+      isSignedIn: false,
+      itemNumbers: {},
+      UID: ""
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     var provider = new firebase.auth.GoogleAuthProvider();
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
     
+    await firebase.auth().onAuthStateChanged((user) => {
+      if(user){
+        console.log("User UID is: " + user.uid);
+        this.setState({
+          UID: user.uid
+        })
+        var docRef = userRef.doc(user.uid);
+        let cartDB = [];
+        let tp = 0;
+        let quantity = 0;
+        try{
+          docRef.get().then(async userDoc => {
+            console.log("userDOC is: " + userDoc);
+            if(userDoc.exists){
+              cartDB = Object.values(userDoc.data().items);
+              tp = Number(userDoc.data().totalPrice);
+              quantity = userDoc.data().quantity;
+              await this.setState({
+                cartProducts: cartDB,
+                totalPrice: tp,
+                productQuantity: quantity
+              })
+            }else{
+              console.log("testtest");
+              if(this.state.cartProducts !== []){
+                db.collection("users").doc(user.uid).set({
+                  items: this.state.cartProducts,
+                  totalPrice: Number(this.state.totalPrice),
+                  quantity: this.state.productQuantity
+                })
+              }
+            }
+          })
+          
+        } catch (e){
+          console.log(e);
+        }
+      }
+    })
+
+    var items = await this.getItemNumber();
+
+    var itemMap = new Map(Object.entries(items));
+
+    this.setState({
+      itemNumbers: itemMap
+    })
+  }
+
+  handleCheckout = async total => {
+    if (total <= 0) {
+      alert("Please buy some stuff. We are poor.")
+    } else {
+      alert("Your total price is: " + total + ". Thank you so much!");
+      await this.setState({
+        productQuantity: 0,
+        cartProducts: [],
+        totalPrice: 0
+      })
+    }
   }
 
   uiConfig = {
@@ -54,22 +118,31 @@ export default class App extends Component {
 
   getItemNumber = async () => {
     var availRef = this.db.collection("items").doc("availability");
-    try{
+    try {
       const items = await availRef.get();
       return items.data();
     } catch (e) {
       console.log("The error is", e);
-      return -1;
+      return 0;
     }
   }
 
-  handleAdd(product) {
-    this.setState(prevState => {
+  async handleAdd(product) {
+    console.log("type of product: " + typeof product);
+    await console.log("prev is: " + this.state.cartProducts);
+    await this.setState(prevState => {
       return {
         productQuantity: prevState.productQuantity + 1,
         cartProducts: prevState.cartProducts.concat(product),
         totalPrice: prevState.totalPrice + product.price
       }
+    })
+    let tempPrice = await Number(this.state.totalPrice);
+    
+    await db.collection("users").doc(this.state.UID).set({
+      items: this.state.cartProducts,
+      totalPrice: tempPrice.toFixed(2),
+      quantity: this.state.productQuantity
     })
     this.setState({ cartIsOpen: true })
   }
@@ -80,14 +153,34 @@ export default class App extends Component {
     })
   }
 
-  removeProduct = product => {
-    this.setState(prevState => {
+  async updateItem(sku) {
+    console.log("before " + this.state.itemNumbers.get(sku));
+
+    let tempMap = this.state.itemNumbers;
+    await tempMap.set(sku, tempMap.get(sku) - 1);
+    this.setState({
+      itemNumbers: tempMap
+    })
+    console.log("after " + this.state.itemNumbers.get(sku));
+  }
+
+  removeProduct = async product => {
+    console.log("sku is: " + product.sku);
+    await this.updateItem(product.sku);
+    await this.setState(prevState => {
       const { cartProducts } = prevState
       return {
         productQuantity: prevState.productQuantity - 1,
         cartProducts: cartProducts.filter(p => p.sku !== product.sku),
         totalPrice: prevState.totalPrice - product.price
       }
+    })
+    let tempPrice = await Number(this.state.totalPrice);
+
+    await db.collection("users").doc(this.state.UID).set({
+      items: this.state.cartProducts,
+      totalPrice: tempPrice.toFixed(2),
+      quantity: this.state.productQuantity
     })
   }
 
@@ -143,7 +236,11 @@ export default class App extends Component {
             cartProducts={this.state.cartProducts}
             isOpen={this.state.cartIsOpen}
             handleToggle={this.handleToggle}
-            removeProduct={this.removeProduct}></FloatCart>
+            removeProduct={this.removeProduct}
+            getItemNumber={this.getItemNumber}
+            handleCheckout={this.handleCheckout}
+          >
+          </FloatCart>
         </div>
       </div>
     );

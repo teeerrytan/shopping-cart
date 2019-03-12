@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CartItem from './CartItem';
 import './float_cart.scss';
+import { object } from 'prop-types';
 
 export default class FloatCart extends React.Component{
     constructor(props) {
@@ -10,21 +11,29 @@ export default class FloatCart extends React.Component{
         }
       }
 
-    handleCheckout = total => {
-      if(total <= 0){
-        alert("Please buy some stuff. We are poor.")
-      }else{
-        alert("Your total price is: " + total + ". Thank you so much!");
-      }
+    async componentDidMount(){
+      var items = await this.props.getItemNumber();
+      
+      var itemMap = new Map(Object.entries(items));
+
+      this.setState({
+          itemNumbers: itemMap
+      })
+      
     }
     
     render() {
-      const { cartTotal, cartProducts, removeProduct} = this.props
-  
-      const products = this.props.cartProducts.map(product => {
-        return <CartItem product={product} key={product.id} removeProduct={this.props.removeProduct} />
-      })
-  
+      const { cartTotal, cartProducts, removeProduct} = this.props;
+      console.log("products are: " + Object.values(cartProducts));
+      let products = [];
+      //////////////////////////////////////////////////////////////////////////////////////
+      if(cartProducts !== []){
+        products = cartProducts.map(product => {
+          
+          console.log("product heihei: " + product);
+          return <CartItem product={product} key={product.id} removeProduct={removeProduct} />
+        })
+      }
       return (
         <div className={`float-cart${this.props.isOpen ? ' float-cart--open' : ''}`}>
           {(() => {
@@ -74,7 +83,7 @@ export default class FloatCart extends React.Component{
                   {`${cartTotal.totalPrice}`}
                 </p>
               </div>
-              <div className="buy-btn" onClick={() => this.handleCheckout(cartTotal.totalPrice)}>
+              <div className="buy-btn" onClick={() => this.props.handleCheckout(cartTotal.totalPrice)}>
                 Checkout
               </div>
             </div>
