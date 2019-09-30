@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Item from './Item';
 import './shelf_style.scss';
 
@@ -69,9 +69,11 @@ export default class ProductTable extends React.Component {
 		});
 
 		return (
-			<div className="shelf-container">
-				<div>{tableProducts.length} products found.</div>
-				{rows}
+			<div>
+				<div className="found-number">
+					{tableProducts.length} products found.
+				</div>
+				<div className="shelf-container">{rows}</div>
 			</div>
 		);
 	}

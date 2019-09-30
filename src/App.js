@@ -266,7 +266,7 @@ export default class App extends Component {
 										className={styles.button}
 										onClick={this.handleSignOut}
 									>
-										Sign-out
+										Sign out
 									</button>
 								</div>
 							)}
