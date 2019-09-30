@@ -1,0 +1,141 @@
+.shelf-container {
+	width: 85%;
+	float: left;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-row-gap: 20px;
+	grid-column-gap: 20px;
+
+	&-header {
+		margin-bottom: 10px;
+
+		.products-found {
+			float: left;
+			margin: 0;
+			margin-top: 8px;
+		}
+
+		.sort {
+			float: right;
+
+			select {
+				background-color: #fff;
+				outline: none;
+				border: 1px solid #ececec;
+				border-radius: 2px;
+				margin-left: 10px;
+				width: auto;
+				height: 35px;
+				cursor: pointer;
+
+				&:hover {
+					border: 1px solid #5b5a5e;
+				}
+			}
+		}
+	}
+
+	.shelf-item {
+		float: left;
+		position: relative;
+		text-align: center;
+		box-sizing: border-box;
+
+		&:hover {
+			border: 1px solid #eee;
+
+			.shelf-item__buy-btn {
+				background-color: #eabf00;
+			}
+		}
+
+		.shelf-stopper {
+			position: absolute;
+			color: #ececec;
+			top: 10px;
+			right: 10px;
+			padding: 5px;
+			font-size: 0.6em;
+			background-color: #1b1a20;
+			cursor: default;
+		}
+
+		&__thumb {
+			img {
+				width: 100%;
+			}
+		}
+
+		&__title {
+			position: relative;
+			padding: 0 20px;
+			height: 45px;
+
+			&::before {
+				content: '';
+				width: 20px;
+				height: 2px;
+				background-color: #eabf00;
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				margin-left: -10px;
+			}
+		}
+
+		&__price {
+			height: 60px;
+
+			.val {
+				b {
+					font-size: 1.5em;
+					margin-left: 5px;
+				}
+			}
+
+			.installment {
+				color: #9c9b9b;
+			}
+		}
+
+		&__buy-btn {
+			background-color: #1b1a20;
+			color: #fff;
+			padding: 15px 0;
+			margin-top: 10px;
+			cursor: pointer;
+			// border-bottom: 2px solid #151419;
+
+			transition: background-color 0.2s;
+		}
+	}
+}
+
+.product-card {
+	float: left;
+	position: relative;
+	text-align: center;
+	font-weight: bold;
+	box-sizing: border-box;
+}
+
+@media only screen and (max-width: 1024px) {
+	body {
+		.filters {
+			width: 20%;
+		}
+
+		.shelf-container {
+			width: 80%;
+
+			.shelf-item {
+				width: 33.33%;
+			}
+		}
+	}
+}
+
+.found-number {
+	margin-top: 10px;
+	font-weight: bold;
+}
