@@ -4916,7 +4916,7 @@ small {
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
-  color: #db5353;
+  color: #00b8f0;
   margin-right: 0px;
   -webkit-transition: color .3s ease;
   transition: color .3s ease;
@@ -5096,7 +5096,7 @@ small {
 
 .tabs .tab a:hover, .tabs .tab a.active {
   background-color: transparent;
-  color: #ee6e73;
+  color: #01aade;
 }
 
 .tabs .tab.disabled a,
