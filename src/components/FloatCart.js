@@ -97,7 +97,7 @@ export default class FloatCart extends React.Component {
 						<div className="sub">SUBTOTAL</div>
 						<div className="sub-price">
 							<p className="sub-price__val">
-								{`${cartTotal.totalPrice}`}
+								$ {`${cartTotal.totalPrice}`}
 							</p>
 						</div>
 						<div

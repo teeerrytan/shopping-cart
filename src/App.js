@@ -103,7 +103,7 @@ export default class App extends Component {
 					totalPrice: 0,
 					quantity: 0
 				});
-			alert('Your total price is: ' + total + '. Thank you so much!');
+			alert('Your total price is: $ ' + total + '. Thank you so much!');
 			await this.setState({
 				productQuantity: 0,
 				cartProducts: [],
@@ -236,16 +236,13 @@ export default class App extends Component {
 
 	render() {
 		let PRODUCTS = require('./data/products.json');
-		let googleStyles = {
-			height: '60px'
-		};
 		return (
 			<div>
 				<nav>
 					<div className="nav-wrapper">
 						<div
 							className="left hide-on-med-and-down"
-							style={googleStyles}
+							style={{ height: '60px' }}
 						>
 							{this.state.isSignedIn !== undefined &&
 								!this.state.isSignedIn && (
@@ -272,7 +269,7 @@ export default class App extends Component {
 							)}
 						</div>
 						<a href="#!" className="brand-logo center">
-							APPAREL
+							SHAKALAKA
 						</a>
 					</div>
 				</nav>
