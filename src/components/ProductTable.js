@@ -52,7 +52,7 @@ export default class ProductTable extends React.Component {
 			tableProducts = products;
 		}
 
-		const rows = tableProducts.map((key, val) => {
+		rows = tableProducts.map((key, val) => {
 			let item = tableProducts[val];
 			let number = 0;
 			if (this.state.itemNumbers instanceof Map) {
@@ -65,7 +65,7 @@ export default class ProductTable extends React.Component {
 						number={number}
 					/>
 				);
-			}
+			} else return undefined;
 		});
 
 		return (

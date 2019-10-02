@@ -145,6 +145,7 @@ export default class App extends Component {
 			},
 			{ merge: true }
 		);
+		return setWithMerge;
 	};
 
 	async handleAdd(product) {
