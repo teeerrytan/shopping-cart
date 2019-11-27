@@ -13,6 +13,6 @@ describe('Test App', () => {
 	it('shows the shopping cart when the shopping cart icon is clicked', () => {
 		cy.visit('/');
 		cy.get('[data-cy=shoppingCartIcon]').click();
-		cy.get('[data-cy=shoppingCartCongtent]').should('contain', 'Shopping Cart');
+		cy.get('[data-cy=shoppingCartContent]').should('contain', 'Shopping Cart');
 	});
 });

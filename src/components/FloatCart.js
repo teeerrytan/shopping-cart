@@ -76,7 +76,7 @@ export default class FloatCart extends React.Component {
 						<span className='bag'>
 							<span className='bag__quantity'>{cartTotal.productQuantity}</span>
 						</span>
-						<span className='header-title' data-cy='shoppingCartCongtent'>
+						<span className='header-title' data-cy='shoppingCartContent'>
 							Shopping Cart
 						</span>
 					</div>
