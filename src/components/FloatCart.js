@@ -44,16 +44,14 @@ export default class FloatCart extends React.Component {
 		}
 		return (
 			<div
-				className={`float-cart${
-					this.props.isOpen ? ' float-cart--open' : ''
-				}`}
+				className={`float-cart${this.props.isOpen ? ' float-cart--open' : ''}`}
 			>
 				{(() => {
 					if (this.props.isOpen) {
 						return (
 							<div
 								onClick={() => this.props.handleToggle()}
-								className="float-cart__close-btn"
+								className='float-cart__close-btn'
 							>
 								X
 							</div>
@@ -62,9 +60,10 @@ export default class FloatCart extends React.Component {
 						return (
 							<span
 								onClick={() => this.props.handleToggle()}
-								className="bag bag--float-cart-closed"
+								className='bag bag--float-cart-closed'
+								data-cy='shoppingCartIcon'
 							>
-								<span className="bag__quantity">
+								<span className='bag__quantity'>
 									{cartTotal.productQuantity}
 								</span>
 							</span>
@@ -72,35 +71,33 @@ export default class FloatCart extends React.Component {
 					}
 				})()}
 
-				<div className="float-cart__content">
-					<div className="float-cart__header">
-						<span className="bag">
-							<span className="bag__quantity">
-								{cartTotal.productQuantity}
-							</span>
+				<div className='float-cart__content'>
+					<div className='float-cart__header'>
+						<span className='bag'>
+							<span className='bag__quantity'>{cartTotal.productQuantity}</span>
 						</span>
-						<span className="header-title">Shopping Cart</span>
+						<span className='header-title' data-cy='shoppingCartCongtent'>
+							Shopping Cart
+						</span>
 					</div>
 
-					<div className="float-cart__shelf-container">
+					<div className='float-cart__shelf-container'>
 						{products}
 						{!products.length && (
-							<p className="shelf-empty">
+							<p className='shelf-empty'>
 								Add some products in the cart. <br />
 								:)
 							</p>
 						)}
 					</div>
 
-					<div className="float-cart__footer">
-						<div className="sub">SUBTOTAL</div>
-						<div className="sub-price">
-							<p className="sub-price__val">
-								$ {`${cartTotal.totalPrice}`}
-							</p>
+					<div className='float-cart__footer'>
+						<div className='sub'>SUBTOTAL</div>
+						<div className='sub-price'>
+							<p className='sub-price__val'>$ {`${cartTotal.totalPrice}`}</p>
 						</div>
 						<div
-							className="buy-btn"
+							className='buy-btn'
 							onClick={() =>
 								this.props.handleCheckout(
 									cartTotal.totalPrice,
