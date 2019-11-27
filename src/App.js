@@ -76,9 +76,7 @@ export default class App extends Component {
 									.doc(user.uid)
 									.set({
 										items: this.state.cartProducts,
-										totalPrice: Number(
-											this.state.totalPrice
-										),
+										totalPrice: Number(this.state.totalPrice),
 										quantity: this.state.productQuantity
 									});
 							}
@@ -242,26 +240,25 @@ export default class App extends Component {
 		return (
 			<div>
 				<nav>
-					<div className="nav-wrapper">
+					<div className='nav-wrapper'>
 						<div
-							className="left hide-on-med-and-down"
+							className='left hide-on-med-and-down'
 							style={{ height: '60px' }}
 						>
-							{this.state.isSignedIn !== undefined &&
-								!this.state.isSignedIn && (
-									<div className="google-login">
-										<StyledFirebaseAuth
-											className={styles.firebaseUi}
-											uiConfig={this.uiConfig}
-											firebaseAuth={firebaseApp.auth()}
-										/>
-									</div>
-								)}
+							{this.state.isSignedIn !== undefined && !this.state.isSignedIn && (
+								<div className='google-login'>
+									<StyledFirebaseAuth
+										className={styles.firebaseUi}
+										uiConfig={this.uiConfig}
+										firebaseAuth={firebaseApp.auth()}
+									/>
+								</div>
+							)}
 							{this.state.isSignedIn && (
 								<div className={styles.signedIn}>
 									&nbsp;&nbsp;&nbsp;Hello{' '}
-									{firebaseApp.auth().currentUser.displayName}
-									. You are now signed In! &nbsp;&nbsp;&nbsp;
+									{firebaseApp.auth().currentUser.displayName}. You are now
+									signed In! &nbsp;&nbsp;&nbsp;
 									<button
 										className={styles.button}
 										onClick={this.handleSignOut}
@@ -271,22 +268,20 @@ export default class App extends Component {
 								</div>
 							)}
 						</div>
-						<a href="#!" className="brand-logo center">
+						<a href='#!' className='brand-logo center' data-cy='title'>
 							SHAKALAKA
 						</a>
 					</div>
 				</nav>
 
-				<div className="page">
+				<div className='page'>
 					<Size
-						className="Size"
+						className='Size'
 						sizes={this.state.sizes}
-						handleToggleFilterSize={size =>
-							this.handleToggleFilterSize(size)
-						}
+						handleToggleFilterSize={size => this.handleToggleFilterSize(size)}
 					/>
 					<ProductTable
-						className="products"
+						className='products'
 						sizes={this.state.sizes}
 						products={PRODUCTS}
 						handleAdd={this.handleAdd}
@@ -294,7 +289,7 @@ export default class App extends Component {
 						itemNumbers={this.state.itemNumbers}
 					/>
 					<FloatCart
-						className="cart"
+						className='cart'
 						cartTotal={{
 							productQuantity: this.state.productQuantity,
 							totalPrice: this.state.totalPrice
