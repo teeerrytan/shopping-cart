@@ -1,11 +1,18 @@
 language: node_js
 node_js:
-  - "stable"
+  - 'stable'
+addons:
+  apt:
+    packages:
+      # needed by Cypress, not in Ubuntu 16+ by default
+      - libgconf-2-4
 cache:
   directories:
-  - node_modules
+    - node_modules
+    # folder with Cypress binary
+    - ~/.cache
 script:
-  - npm test
+  - npm run test:ci
   - npm run build
 deploy:
   provider: pages
